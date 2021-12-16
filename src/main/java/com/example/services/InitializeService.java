@@ -40,9 +40,6 @@ public class InitializeService {
         slot.put(1004, s4);
         slot.put(1005, s5);
 
-//        Appointment a1 = new Appointment(5001, 101, 1001, true, false);
-//        appointment.put(5001, a1);
-
         return "DATA READY";
     }
 

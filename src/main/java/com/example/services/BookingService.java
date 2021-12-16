@@ -15,8 +15,7 @@ import java.util.List;
 
 public class BookingService {
 
-    static int concat(int a, int b)
-    {
+    static int concat(int a, int b) {
 
         String s1 = Integer.toString(a);
         String s2 = Integer.toString(b);
@@ -26,30 +25,25 @@ public class BookingService {
         return c;
     }
 
-    public UserDetails bookingService(BookingDetailsRequest bookingRequest, HashMap<Integer, User> user, HashMap<Integer, Center> center, HashMap<Integer, Slot> slot, HashMap<Integer, Appointment> appointment)
-    {
-        SlotDetailsRequest req = new SlotDetailsRequest(bookingRequest.getCity(),bookingRequest.getDose(),bookingRequest.getDate());
+    public UserDetails bookingService(BookingDetailsRequest bookingRequest, HashMap<Integer, User> user, HashMap<Integer, Center> center, HashMap<Integer, Slot> slot, HashMap<Integer, Appointment> appointment) {
+        SlotDetailsRequest req = new SlotDetailsRequest(bookingRequest.getCity(), bookingRequest.getDose(), bookingRequest.getDate());
         CenterSlotServices c = new CenterSlotServices();
-        List<CenterSlotDetailResponse> res = c.centerSlotServices(req,user,center,slot,appointment);
+        List<CenterSlotDetailResponse> res = c.centerSlotServices(req, user, center, slot, appointment);
 
-        for(CenterSlotDetailResponse i : res)
-        {
-            if(i.getCenterId().equals(bookingRequest.getCenterId()))
-            {
+        for (CenterSlotDetailResponse i : res) {
+            if (i.getCenterId().equals(bookingRequest.getCenterId())) {
                 List<SlotDetails> list = i.getSlotDetails();
-                for(SlotDetails j : list)
-                {
-                    if(j.getSlotId().equals(bookingRequest.getSlotId()))
-                    {
+                for (SlotDetails j : list) {
+                    if (j.getSlotId().equals(bookingRequest.getSlotId())) {
                         //j.setVaccineAvailability(j.getVaccineAvailability() -1);
                         Slot ss = slot.get(bookingRequest.getSlotId());
-                        ss.setCovaxinAvailability(ss.getCovaxinAvailability()-1);
-                        Integer appointmentId = concat (bookingRequest.getUserId(), appointment.size());
-                        Boolean isDose1 = (bookingRequest.getDose().equals("1"))?true:false;
-                        appointment.put(appointmentId, new Appointment(appointmentId,bookingRequest.getUserId(),bookingRequest.getSlotId(),isDose1,!isDose1));
+                        ss.setCovaxinAvailability(ss.getCovaxinAvailability() - 1);
+                        Integer appointmentId = concat(bookingRequest.getUserId(), appointment.size());
+                        Boolean isDose1 = bookingRequest.getDose().equals("1");
+                        appointment.put(appointmentId, new Appointment(appointmentId, bookingRequest.getUserId(), bookingRequest.getSlotId(), isDose1, !isDose1));
 
                         UserServices u = new UserServices();
-                        return u.userServices(bookingRequest.getUserId(),user,center,slot,appointment);
+                        return u.userServices(bookingRequest.getUserId(), user, center, slot, appointment);
                     }
                 }
             }

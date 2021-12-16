@@ -26,7 +26,7 @@ public class UserServices {
                 app.add(appDetails);
             }
         }
-        User user_Details = new User();
+        User user_Details;
         user_Details = user.get(id);
         String vaccinationStatus = (user_Details.getDose2()) ? "Vaccinated" : (user_Details.getDose1()) ? "Partially Vaccinated" : "Not Vaccinated";
         UserDetails userData = new UserDetails(user_Details.getId(), user_Details.getName(), user_Details.getCity(), vaccinationStatus, app);
