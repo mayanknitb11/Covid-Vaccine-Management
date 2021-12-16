@@ -22,7 +22,7 @@ public class UserServices {
                 System.out.println(a.getUserId());
                 Slot slotdetails = slot.get(a.getSlotId());
                 String dose = (a.getDose1()) ? "1" : "2";
-                AppointmentDetails appDetails = new AppointmentDetails(a.getAppointmentId(), slotdetails.getCenterId(), a.getSlotId(), dose);
+                AppointmentDetails appDetails = new AppointmentDetails(a.getAppointmentId(), slotdetails.getCenterId(), a.getSlotId(), dose,a.getAppointmentStatus());
                 app.add(appDetails);
             }
         }

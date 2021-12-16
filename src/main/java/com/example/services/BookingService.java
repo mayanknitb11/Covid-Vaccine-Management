@@ -35,15 +35,19 @@ public class BookingService {
                 List<SlotDetails> list = i.getSlotDetails();
                 for (SlotDetails j : list) {
                     if (j.getSlotId().equals(bookingRequest.getSlotId())) {
-                        //j.setVaccineAvailability(j.getVaccineAvailability() -1);
                         Slot ss = slot.get(bookingRequest.getSlotId());
-                        ss.setCovaxinAvailability(ss.getCovaxinAvailability() - 1);
-                        Integer appointmentId = concat(bookingRequest.getUserId(), appointment.size());
-                        Boolean isDose1 = bookingRequest.getDose().equals("1");
-                        appointment.put(appointmentId, new Appointment(appointmentId, bookingRequest.getUserId(), bookingRequest.getSlotId(), isDose1, !isDose1));
+                        Integer availableVaccine = ss.getCovaxinAvailability();
+                        if(availableVaccine>0)
+                        {
+                            ss.setCovaxinAvailability(availableVaccine - 1);
+                            Integer appointmentId = concat(bookingRequest.getUserId(), appointment.size());
+                            Boolean isDose1 = bookingRequest.getDose().equals("1");
+                            appointment.put(appointmentId, new Appointment(appointmentId, bookingRequest.getUserId(), bookingRequest.getSlotId(), isDose1, !isDose1, "SCHEDULED"));
 
-                        UserServices u = new UserServices();
-                        return u.userServices(bookingRequest.getUserId(), user, center, slot, appointment);
+                            UserServices u = new UserServices();
+                            return u.userServices(bookingRequest.getUserId(), user, center, slot, appointment);
+                        }
+
                     }
                 }
             }
