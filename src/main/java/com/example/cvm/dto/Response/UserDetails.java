@@ -1,4 +1,4 @@
-package com.example.dto.Response;
+package com.example.cvm.dto.Response;
 
 import lombok.Data;
 

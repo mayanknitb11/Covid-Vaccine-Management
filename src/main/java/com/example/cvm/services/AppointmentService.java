@@ -1,14 +1,16 @@
-package com.example.services;
+package com.example.cvm.services;
 
-import com.example.dto.DB.Appointment;
-import com.example.dto.DB.Center;
-import com.example.dto.DB.Slot;
-import com.example.dto.DB.User;
-import com.example.dto.Request.UpdateAppointmentRequest;
-import com.example.dto.Response.AppointmentResponse;
+import com.example.cvm.dto.DB.Appointment;
+import com.example.cvm.dto.DB.Center;
+import com.example.cvm.dto.DB.Slot;
+import com.example.cvm.dto.DB.User;
+import com.example.cvm.dto.Request.UpdateAppointmentRequest;
+import com.example.cvm.dto.Response.AppointmentResponse;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+@Service
 public class AppointmentService {
 
     public AppointmentResponse appointmentService(Integer appId, HashMap<Integer, User> user, HashMap<Integer, Center> center, HashMap<Integer, Slot> slot, HashMap<Integer, Appointment> appointment) {

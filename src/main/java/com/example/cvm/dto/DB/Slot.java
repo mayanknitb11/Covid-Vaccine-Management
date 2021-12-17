@@ -1,4 +1,4 @@
-package com.example.dto.DB;
+package com.example.cvm.dto.DB;
 
 import lombok.Data;
 

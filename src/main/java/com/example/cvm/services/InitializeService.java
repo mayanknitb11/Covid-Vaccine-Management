@@ -1,15 +1,17 @@
-package com.example.services;
+package com.example.cvm.services;
 
-import com.example.dto.DB.Appointment;
-import com.example.dto.DB.Center;
-import com.example.dto.DB.Slot;
-import com.example.dto.DB.User;
+import com.example.cvm.dto.DB.Appointment;
+import com.example.cvm.dto.DB.Center;
+import com.example.cvm.dto.DB.Slot;
+import com.example.cvm.dto.DB.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 
 
+@Service
 public class InitializeService {
 
     public String initializeMethod(HashMap<Integer, User> user, HashMap<Integer, Center> center, HashMap<Integer, Slot> slot, HashMap<Integer, Appointment> appointment) {
