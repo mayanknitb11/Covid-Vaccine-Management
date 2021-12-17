@@ -1,4 +1,4 @@
-package com.example.cvm;
+package com.example.cvm.cvmController;
 
 import com.example.cvm.dto.DB.Appointment;
 import com.example.cvm.dto.DB.Center;
