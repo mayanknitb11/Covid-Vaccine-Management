@@ -7,7 +7,7 @@ import java.time.LocalTime;
 @Data
 public class AppointmentResponse {
 
-    public AppointmentResponse(Integer id, String name, String city, Integer appointmentId, Integer centerId, Integer slotId, LocalTime time, String dose, String vaccinationStatus) {
+    public AppointmentResponse(Integer id, String name, String city, Integer appointmentId, Integer centerId, Integer slotId, LocalTime time, String dose, String vaccinationStatus, String appointmentStatus) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -17,6 +17,7 @@ public class AppointmentResponse {
         this.time = time;
         this.dose = dose;
         this.vaccinationStatus = vaccinationStatus;
+        this.appointmentStatus = appointmentStatus;
     }
 
     private Integer id;
@@ -28,4 +29,5 @@ public class AppointmentResponse {
     private LocalTime time;
     private String dose;
     private String vaccinationStatus;
+    private String appointmentStatus;
 }

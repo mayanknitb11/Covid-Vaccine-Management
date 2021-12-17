@@ -6,6 +6,7 @@ import com.example.dto.DB.Slot;
 import com.example.dto.DB.User;
 import com.example.dto.Request.BookingDetailsRequest;
 import com.example.dto.Request.SlotDetailsRequest;
+import com.example.dto.Request.UpdateAppointmentRequest;
 import com.example.dto.Response.AppointmentResponse;
 import com.example.dto.Response.CenterSlotDetailResponse;
 import com.example.dto.Response.UserDetails;
@@ -56,9 +57,15 @@ public class CvmController {
     @GetMapping("/appointment/{appId}")
     public AppointmentResponse getAppDetails (@PathVariable ("appId") int appId)
     {
-
         AppointmentService a = new AppointmentService();
         return a.appointmentService(appId,user,center,slot,appointment);
+    }
+
+    @PutMapping("/updateStatus")
+    public AppointmentResponse updateStatus (@RequestBody UpdateAppointmentRequest req)
+    {
+        AppointmentService a = new AppointmentService();
+        return a.updateAppointment(req,user,center,slot,appointment);
     }
 }
 
