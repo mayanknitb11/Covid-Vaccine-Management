@@ -46,7 +46,13 @@ public class CenterSlotServices {
             List<SlotDetails> slotList = new ArrayList<>();
 
             for (Slot j : s) {
-                String dose = (j.getDose1()) ? "1" : "2";
+                String dose = null;
+                if (j.getDose1() && slotDetailsRequest.getDose().equals("1"))
+                    dose = "1";
+                else if (j.getDose2() && slotDetailsRequest.getDose().equals("2"))
+                    dose = "2";
+                else
+                    return null;
                 SlotDetails sd = new SlotDetails(j.getId(), dose, j.getTime(), j.getCovaxinAvailability());
                 slotList.add(sd);
             }

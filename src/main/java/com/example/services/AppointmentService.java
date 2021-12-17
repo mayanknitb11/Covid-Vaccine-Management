@@ -34,7 +34,11 @@ public class AppointmentService {
             Appointment a = appointment.get(appId);
             if (a.getUserId().equals(req.getUserId())) {
                 String centerStatus = req.getStatus();
+                String preStatus = a.getAppointmentStatus();
                 User u = user.get(req.getUserId());
+
+                if(preStatus.equals(centerStatus))
+                    return null;
 
                 if(centerStatus.equals("SCHEDULED"))
                     return null;

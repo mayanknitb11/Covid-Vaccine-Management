@@ -5,14 +5,10 @@ import com.example.dto.DB.Center;
 import com.example.dto.DB.Slot;
 import com.example.dto.DB.User;
 import com.example.dto.Request.BookingDetailsRequest;
-import com.example.dto.Request.SlotDetailsRequest;
-import com.example.dto.Response.CenterSlotDetailResponse;
-import com.example.dto.Response.SlotDetails;
 import com.example.dto.Response.UserDetails;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BookingService {
@@ -24,8 +20,7 @@ public class BookingService {
         Center c = center.get(centerId);
         Slot s = slot.get(slotId);
         Boolean check = checkAvailableSlot(c,s, bookingRequest.getDate() ,s.getDate(), bookingRequest.getDose(),s.getDose1(),s.getDose2(),s.getCovaxinAvailability());
-        Boolean eleigible = checkElegibility (appointment, bookingRequest.getUserId(), bookingRequest.getDose());
-        System.out.println (check +" "+eleigible);
+        Boolean eleigible = checkElegibility (appointment, bookingRequest.getUserId(), bookingRequest.getDose(), user.get(bookingRequest.getUserId()).getDose1());
         if(check && eleigible)
         {
             String eleigibleForDose = (user.get(bookingRequest.getUserId()).getDose1())?((user.get(bookingRequest.getUserId()).getDose2())?"0":"2"):"1";
@@ -58,7 +53,7 @@ public class BookingService {
 
 //    for user there should be no appointment for same dose
 
-    static  Boolean checkElegibility (HashMap<Integer, Appointment> appointment, Integer userId, String bookingDose)
+    static  Boolean checkElegibility (HashMap<Integer, Appointment> appointment, Integer userId, String bookingDose, Boolean isPartiallyVaccinated)
     {
         for(Map.Entry<Integer, Appointment> i : appointment.entrySet()) {
             Appointment a = i.getValue();
@@ -68,23 +63,30 @@ public class BookingService {
                 String status = a.getAppointmentStatus();
 
                 if (bookingDose.equals("1")) {
-                    if (appDose.equals("1") && (status == "SCHEDULE"))
+                    if (appDose.equals("1") && (status.equals("SCHEDULE"))) {
                         return false;
-                    else if (appDose.equals("1") && (status == "FINISHED"))
+                    }
+                    else if (appDose.equals("1") && (status.equals("FINISHED"))){
                         return false;
+                    }
                 } else if (bookingDose.equals("2")) {
-                    if (appDose.equals("2") && (status == "SCHEDULE"))
+                    if (appDose.equals("2") && (status.equals("SCHEDULE"))){
                         return false;
-                    else if (appDose.equals("2") && (status == "FINISHED"))
+                    }
+                    else if (appDose.equals("2") && (status.equals("FINISHED"))){
                         return false;
-                    else if (appDose.equals("1") && (status == "SCHEDULE"))
+                    }
+                    else if (appDose.equals("1") && (status.equals("SCHEDULE"))){
                         return false;
+                    }
 
                 } else
                     return true;
             }
         }
 
+        if (isPartiallyVaccinated)
+            return (bookingDose.equals("2")?true : false);
         return (bookingDose.equals("1"))?true:false;
     }
 

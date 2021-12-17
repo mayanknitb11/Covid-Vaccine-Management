@@ -19,7 +19,6 @@ public class UserServices {
         for (Map.Entry<Integer, Appointment> i : appointment.entrySet()) {
             Appointment a = i.getValue();
             if (a.getUserId().equals(id)) {
-                System.out.println(a.getUserId());
                 Slot slotdetails = slot.get(a.getSlotId());
                 String dose = (a.getDose1()) ? "1" : "2";
                 AppointmentDetails appDetails = new AppointmentDetails(a.getAppointmentId(), slotdetails.getCenterId(), a.getSlotId(), dose,a.getAppointmentStatus());
