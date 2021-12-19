@@ -9,6 +9,7 @@ public class AppointmentDetails {
     private Integer slotId;
     private String dose;
     private String appointmentStatus;
+
     public AppointmentDetails(Integer appointmentId, Integer centerId, Integer slotId, String dose, String appointmentStatus) {
         this.appointmentId = appointmentId;
         this.centerId = centerId;
@@ -16,6 +17,7 @@ public class AppointmentDetails {
         this.dose = dose;
         this.appointmentStatus = appointmentStatus;
     }
+
     public AppointmentDetails() {
 
     }
