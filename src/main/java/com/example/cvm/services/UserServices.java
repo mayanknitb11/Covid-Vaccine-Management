@@ -25,7 +25,8 @@ public class UserServices {
     AppointmentRepo appointmentRepo;
 
     public User addUser(User req) {
-        // User u = new User(req.getName(),req.getCity(),false,false);
+        req.setDose1(false);
+        req.setDose2(false);
         User res = userRepo.save(req);
         return res;
     }
