@@ -6,6 +6,11 @@ import java.util.List;
 
 @Data
 public class CenterSlotDetailResponse {
+    private Integer centerId;
+    private String centerName;
+    private String city;
+    private String vaccine;
+    private List<SlotDetails> slotDetails;
     public CenterSlotDetailResponse(Integer centerId, String centerName, String city, String vaccine, List<SlotDetails> slotDetails) {
         this.centerId = centerId;
         this.centerName = centerName;
@@ -13,11 +18,5 @@ public class CenterSlotDetailResponse {
         this.vaccine = vaccine;
         this.slotDetails = slotDetails;
     }
-
-    private Integer centerId;
-    private String centerName;
-    private String city;
-    private String vaccine;
-    private List<SlotDetails> slotDetails;
 
 }
