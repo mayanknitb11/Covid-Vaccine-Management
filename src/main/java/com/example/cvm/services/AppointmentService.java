@@ -9,7 +9,11 @@ import com.example.cvm.dto.entities.Appointment;
 import com.example.cvm.dto.entities.Slot;
 import com.example.cvm.dto.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class AppointmentService {
@@ -22,13 +26,36 @@ public class AppointmentService {
     SlotRepo slotRepo;
 
 
+    HashMap<Integer,Appointment> appList = new HashMap<>();
     public String delAppointment(Integer id) {
         appointmentRepo.deleteById(id);
         return "Deleted";
     }
 
+    @Scheduled(fixedRate = 5000)
+    public void getAppointments ()
+    {
+        System.out.println("Mayank");
+        List<Appointment>list =  (List<Appointment>)appointmentRepo.findAll();
+        for(Appointment a : list)
+        {
+            appList.put(a.getId(),a);
+        }
+
+    }
+
     public AppointmentResponse appointmentService(Integer appId) {
-        Appointment a = appointmentRepo.findAById(appId);
+
+        Appointment a;
+        if(appList.containsKey(appId))
+        {
+            System.out.println("From HashMap");
+            a = appList.get(appId);
+        }
+        else{
+            System.out.println("From DB");
+            a = appointmentRepo.findAById(appId);
+        }
         Integer userId = a.getUserId();
         Integer slotId = a.getSlotId();
 
